@@ -28,11 +28,6 @@ public class UsersController {
         return new ResponseEntity<>(usersService.getOneUser(Integer.parseInt(id)), HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> registerUser(@RequestBody Map<String, String> payload) {
-        return new ResponseEntity<>(usersService.registerUser(payload.get("username"), payload.get("password"), payload.get("email")), HttpStatus.CREATED);
-    }
-
     @PostMapping("/admin/add")
     public ResponseEntity<String> adminAddUser(@RequestBody Map<String, String> payload) {
         return new ResponseEntity<>(usersService.adminAddUser(payload.get("username"), payload.get("password"), payload.get("email"), payload.get("role")), HttpStatus.CREATED);
@@ -54,7 +49,7 @@ public class UsersController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Users> loginUser(@RequestBody Map<String, String> payload) {
-        return new ResponseEntity<>(usersService.loginUser(payload.get("username"), payload.get("password")), HttpStatus.OK);
+    public ResponseEntity<Users> loginUser() {
+        return new ResponseEntity<>(usersService.loginUser(), HttpStatus.OK);
     }
 }

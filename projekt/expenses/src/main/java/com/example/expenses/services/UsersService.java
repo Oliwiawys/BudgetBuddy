@@ -4,6 +4,8 @@ import com.example.expenses.models.Expenses;
 import com.example.expenses.models.Users;
 import com.example.expenses.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -27,18 +29,6 @@ public class UsersService {
 
     public Optional<Users> getOneUser(int id) {
         return usersRepository.findById(id);
-    }
-
-    public String registerUser(String username, String password, String email) {
-        if (usersRepository.findByUsername(username).isPresent()) {
-            return "usernameExists";
-        }
-        if (usersRepository.findByEmail(email).isPresent()) {
-            return "emailExists";
-        }
-        Users user = new Users(username, email, password, "user", new Date());
-        usersRepository.save(user);
-        return "registered";
     }
 
     public String adminAddUser(String username, String password, String email, String role) {
@@ -96,14 +86,10 @@ public class UsersService {
         return "updated";
     }
 
-    public Users loginUser(String username, String password) {
-        if (usersRepository.findByUsername(username).isEmpty()) {
-            return null;
-        }
+    public Users loginUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         Users user = usersRepository.findByUsername(username).get();
-        if (password.equals(user.getPassword())) {
-            return user;
-        }
-        return null;
+        return user;
     }
 }

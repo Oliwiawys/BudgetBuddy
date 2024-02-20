@@ -10,6 +10,7 @@ import com.example.expenses.repositories.TagsRepository;
 import com.example.expenses.repositories.UsersRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -23,30 +24,32 @@ public class DataInitService {
     private final TagsRepository tagsRepository;
     private final ExpensesRepository expensesRepository;
     private final ExpensesTagsRepository expensesTagsRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Autowired
-    public DataInitService(UsersRepository usersRepository, TagsRepository tagsRepository, ExpensesRepository expensesRepository, ExpensesTagsRepository expensesTagsRepository) {
+    public DataInitService(UsersRepository usersRepository, TagsRepository tagsRepository, ExpensesRepository expensesRepository, ExpensesTagsRepository expensesTagsRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
         this.tagsRepository = tagsRepository;
         this.expensesRepository = expensesRepository;
         this.expensesTagsRepository = expensesTagsRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
     public void init() {
         if (usersRepository.count() == 0 && tagsRepository.count() == 0 && expensesRepository.count() == 0 && expensesTagsRepository.count() == 0) {
-            Users user1 = new Users("guest", "guest@email.com", "guest", "guest", new Date());
+            Users user1 = new Users("guest", "guest@email.com", passwordEncoder.encode("guest"), "guest", new Date());
             usersRepository.save(user1);
-            Users user2 = new Users("admin", "admin@email.com", "admin", "admin", new Date());
+            Users user2 = new Users("admin", "admin@email.com", passwordEncoder.encode("admin"), "admin", new Date());
             usersRepository.save(user2);
-            Users user3 = new Users("user", "user@email.com", "user", "user", new Date());
+            Users user3 = new Users("user", "user@email.com", passwordEncoder.encode("user"), "user", new Date());
             usersRepository.save(user3);
-            Users user4 = new Users("admin1", "admin1@email.com", "admin", "admin", new Date());
+            Users user4 = new Users("admin1", "admin1@email.com", passwordEncoder.encode("admin"), "admin", new Date());
             usersRepository.save(user4);
-            Users user5 = new Users("user1", "user1@email.com", "user", "user", new Date());
+            Users user5 = new Users("user1", "user1@email.com", passwordEncoder.encode("user"), "user", new Date());
             usersRepository.save(user5);
-            Users user6 = new Users("oliwiawys", "oliwiawys@email.com", "password", "admin", new Date());
+            Users user6 = new Users("oliwiawys", "oliwiawys@email.com", passwordEncoder.encode("password"), "admin", new Date());
             usersRepository.save(user6);
 
 
