@@ -1,0 +1,25 @@
+.password-toggle {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #718e94;
+    background-color: #ecf0f1;
+    border: 1px solid #718e94;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.password-toggle:hover {
+    background-color: #718e94;
+    color: #ecf0f1;
+}
+
+.hidden-password {
+    display: inline-block;
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #2c3e50;
+}
