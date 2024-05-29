@@ -12,7 +12,6 @@ BudgetBuddy - this web application helps users manage their personal expenses ef
 - **User Authentication:** Secure user login and registration.
 - **Expense Tracking:** Add, edit, and delete expenses.
 - **Category Management:** Organize expenses by categories.
-- **Reports and Analytics:** View detailed reports and analytics of your expenses.
 
 ## Installation
 
