@@ -37,7 +37,7 @@ This script will:
 2. Start the backend using Java.
 3. Start the frontend using React.
 
-Usage
+## Usage
 1. Open your browser and go to http://localhost:3000.
 2. Register a new account or log in with existing credentials.
 Example credentials:
@@ -45,7 +45,7 @@ Example credentials:
    - user/user - user account
 Start managing your expenses by adding new entries and analyzing your spending.
 
-Technologies Used
+## Technologies Used
 - **Backend:** Java Spring Boot
   - Spring Data JPA
   - Spring Web
