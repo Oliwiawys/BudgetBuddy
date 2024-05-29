@@ -41,8 +41,8 @@ Usage
 1. Open your browser and go to http://localhost:3000.
 2. Register a new account or log in with existing credentials.
 Example credentials:
-- admin/admin - admin account
-- user/user - user account
+   - admin/admin - admin account
+   - user/user - user account
 Start managing your expenses by adding new entries and analyzing your spending.
 
 Technologies Used
