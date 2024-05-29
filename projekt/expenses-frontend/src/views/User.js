@@ -10,10 +10,6 @@ const User = () => {
     const [error, setError] = useState("");
     const token = sessionStorage.getItem('token');
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
-
     const handleDeleteUser = async () => {
         const confirmed = window.confirm('Czy na pewno chcesz usunąć konto?');
 
@@ -50,17 +46,11 @@ const User = () => {
     return (
         <div className="user">
             <h1>Użytkownik:</h1>
-            <p>ID użytkownika: {user.userID}</p>
+            {user.role !== "guest" && (
+                <p>ID użytkownika: {user.userID}</p>
+            )}
             <p>Nazwa użytkownika: {user.username}</p>
             <p>Email: {user.email}</p>
-            <p>
-                Hasło:{' '}
-                {showPassword ? (user.password) : (
-                    <span className="hidden-password">{'*'.repeat(user.password.length)}</span>)}
-                <span className="password-toggle"
-                      onClick={togglePasswordVisibility}>{showPassword ? 'Ukryj' : 'Pokaż'}
-                </span>
-            </p>
             <p>Rola: {user.role}</p>
             <p>Data utworzenia konta: {user.createDate}</p>
             <button type="submit" onClick={handleLogout}>

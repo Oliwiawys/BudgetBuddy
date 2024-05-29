@@ -37,7 +37,7 @@ const Users = () => {
                 const data = await response.json();
                 if (data !== null) {
                     console.log("Users retrieved successfully");
-                    const filteredUsers = data.filter(user => user.role !== "guest");
+                    const filteredUsers = data.filter(user => user.role);
                     setUsers(filteredUsers);
                 }
             } catch (error) {

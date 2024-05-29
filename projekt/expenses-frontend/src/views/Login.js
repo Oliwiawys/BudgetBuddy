@@ -11,53 +11,48 @@ const Login = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleAuthentication = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         try {
-            const response = await fetch(
+            const authResponse = await fetch(
                 "http://localhost:8080/auth/authenticate",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({
-                        username: username,
-                        password: password
-                    }),
+                    body: JSON.stringify({username, password})
                 }
             );
 
-            const data = await response.json();
-            console.log(data);
-            if (data !== null) {
-                setToken(data.token);
-                console.log(token);
-                sessionStorage.setItem('token', token);
+            if (!authResponse.ok) {
+                throw new Error("Autoryzacja nie powiodła się");
             }
-        } catch (error) {
-            setError("Błędny login lub hasło. Spróbuj ponownie.");
-        }
-    }
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        await handleAuthentication();
-        try {
-            const response = await fetch(
+            const authData = await authResponse.json();
+            if (!authData || !authData.token) {
+                throw new Error("Autoryzacja nie powiodła się");
+            }
+
+            const token = authData.token;
+            sessionStorage.setItem('token', token);
+
+            const loginResponse = await fetch(
                 "http://localhost:8080/users/login",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`,
+                        "Authorization": `Bearer ${token}`
                     },
+                    body: JSON.stringify({username, password})
                 }
             );
 
-            const data = await response.json();
-            if (data !== null) {
+            const loginData = await loginResponse.json();
+            if (loginData) {
                 console.log("Login successful");
-                setUser(data);
+                setUser(loginData);
                 navigate("/expenses");
             }
         } catch (error) {
@@ -68,12 +63,38 @@ const Login = () => {
     const handleGuestLogin = async (e) => {
         e.preventDefault();
         try {
+            const authResponse = await fetch(
+                "http://localhost:8080/auth/authenticate",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: "guest",
+                        password: "guest"})
+                }
+            );
+
+            if (!authResponse.ok) {
+                throw new Error("Autoryzacja nie powiodła się");
+            }
+
+            const authData = await authResponse.json();
+            if (!authData || !authData.token) {
+                throw new Error("Autoryzacja nie powiodła się");
+            }
+
+            const token = authData.token;
+            sessionStorage.setItem('token', token);
+
             const response = await fetch(
                 "http://localhost:8080/users/login",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         username: "guest",
@@ -82,8 +103,12 @@ const Login = () => {
                 }
             );
 
+            if (!response.ok) {
+                throw new Error("Login failed");
+            }
+
             const data = await response.json();
-            if (data !== null) {
+            if (data) {
                 console.log("Login successful");
                 setUser(data);
                 navigate("/expenses");
