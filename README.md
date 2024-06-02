@@ -41,6 +41,7 @@ This script will:
 Example credentials:
    - admin/admin - admin account
    - user/user - user account
+
 Start managing your expenses by adding new entries and analyzing your spending.
 
 ## Technologies Used
