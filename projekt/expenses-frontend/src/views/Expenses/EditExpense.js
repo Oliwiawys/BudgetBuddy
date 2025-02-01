@@ -141,7 +141,7 @@ const EditExpense = () => {
             }
         };
         fetchTags();
-    }, []);
+    });
 
     useEffect(() => {
         const selectedTagIds = expense.tags.map(tag => tag.tag.tagId);

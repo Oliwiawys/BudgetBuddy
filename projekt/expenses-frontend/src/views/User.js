@@ -5,7 +5,6 @@ import "../styles/User.css";
 
 const User = () => {
     const {user} = useContext(UserContext);
-    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const token = sessionStorage.getItem('token');
