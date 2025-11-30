@@ -6,6 +6,7 @@ BudgetBuddy - this web application helps users manage their personal expenses ef
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [API Testing](#api-testing)
 - [Technologies Used](#technologies-used)
 
 ## Features
@@ -43,6 +44,13 @@ Example credentials:
    - user/user - user account
 
 Start managing your expenses by adding new entries and analyzing your spending.
+
+## API Testing
+You can test the API commands using Swagger 3.
+
+Swagger UI: http://localhost:8080/swagger-ui/index.html#/
+
+See the document in Json format: http://localhost:8080/v3/api-docs
 
 ## Technologies Used
 - **Backend:** Java Spring Boot
